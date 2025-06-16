@@ -48,7 +48,7 @@ pipeline {
      stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
-            GIT_USER_NAME = "thegagankapoor"
+            GIT_USER_NAME = "imgagankapoor"
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
@@ -58,7 +58,7 @@ pipeline {
                     pwd
                     git config --global --add safe.directory /var/lib/jenkins/workspace/ultimate-cicd
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s+thegagankapoor/ultimate-cicd.*+thegagankapoor/ultimate-cicd:${BUILD_NUMBER}+g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                    sed -i "s+imgagankapoor/ultimate-cicd.*+imgagankapoor/ultimate-cicd:${BUILD_NUMBER}+g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git add -A
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main

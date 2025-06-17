@@ -31,7 +31,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "thegagankapoor/ultimate-cicd:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "thegagankapoor/pipeline-cicd:${BUILD_NUMBER}"
         // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
         REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
@@ -58,7 +58,7 @@ pipeline {
                     pwd
                     git config --global --add safe.directory /var/lib/jenkins/workspace/ultimate-cicd
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s+imgagankapoor/ultimate-cicd.*+imgagankapoor/ultimate-cicd:${BUILD_NUMBER}+g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                    sed -i "s+thegagankapoor/pipeline-cicd.*+thegagankapoor/pipeline-cicd:${BUILD_NUMBER}+g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git add -A
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
